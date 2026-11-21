@@ -1,24 +1,26 @@
-# Aster Delete Morph Target
+# Aster GLB Model Delete
 
-A lightweight, mobile-friendly VRM morph-target cleanup tool for GitHub Pages.
+A mobile-friendly, browser-local GLB 2.0 cleanup tool. **GLB only** — VRM files are not supported.
 
 ## Features
-- Load VRM 0.x and VRM 1.0 (GLB container).
-- Preview the avatar in the browser.
-- Browse and search morph targets by mesh.
-- Select multiple targets and remove them.
-- Update VRM expression morph-target bindings and export a cleaned .vrm.
-- Original file is kept unchanged; processing happens locally in the browser.
+- Import and export binary `.glb` files.
+- 3D preview (automatically skipped for larger files to reduce mobile memory pressure).
+- Search and multi-select Morph Targets.
+- Remove selected Morph Targets.
+- Search and multi-select Meshes.
+- Remove selected Meshes and remap node mesh references.
+- Reset to the original file.
+- All model processing happens locally in the browser; files are not uploaded.
 
-## Deploy on GitHub Pages
+## GitHub Pages
 1. Open **Settings → Pages**.
-2. Under **Build and deployment**, choose **Deploy from a branch**.
-3. Select branch **main**, folder **/(root)**, then Save.
-4. Wait for the Pages deployment to finish.
+2. Choose **Deploy from a branch**.
+3. Select branch **main** and folder **/(root)**.
+4. Save and wait for deployment.
 
-## Notes
-- The preview libraries are loaded from jsDelivr on first use, so an internet connection is required to load the app and its 3D dependencies.
-- The model itself is not uploaded to a server.
-- The tool edits the GLB JSON chunk and preserves the original binary chunks. Unused morph-target accessors may remain in the file, so file size may not shrink substantially.
-- Please validate exported models in your target VRM application before replacing your original file.
-- VRM animation tracks that animate morph-target weights are not remapped in this first version. Models with such animation tracks should be tested carefully.
+## Important limitations
+- This version accepts GLB 2.0 binary files only. It does not accept VRM or separate .gltf + .bin files.
+- Removing targets or meshes updates the GLB JSON structure, but unused binary buffer data and accessors are not compacted. The exported file may therefore not become much smaller.
+- Mesh removal removes mesh references from nodes; it does not perform advanced skeleton/animation cleanup or delete unused materials and textures.
+- Large-file preview is skipped to reduce memory use on Android. Editing still runs in the browser, but very large models may exceed available device memory.
+- Keep the original file and validate exported GLB in a compatible viewer before using it.
